@@ -4,7 +4,7 @@ south==1.0.1
 django-endless-pagination==2.0
 django-grappelli==2.5.5
 django-infinite-pagination==1.0
-django-menu=0.1.8
+django-menu==0.1.8
 django-navigation==0.8.1
 django-solo==1.1.0
 django-tinymce==1.5.3
