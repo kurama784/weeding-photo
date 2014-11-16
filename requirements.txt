@@ -1,13 +1,13 @@
 django==1.6.1
 pillow==2.3.0
-south=1.0.1
+south==1.0.1
 django-endless-pagination==2.0
-django-grapelli==2.5.5
+django-grappelli==2.5.5
 django-infinite-pagination==1.0
 django-menu=0.1.8
 django-navigation==0.8.1
 django-solo==1.1.0
 django-tinymce==1.5.3
 django-utils==0.0.2
-sorl-thumbnail==1.12.1b
+sorl-thumbnail==11.12.1b
 virtualenv==1.11.6
