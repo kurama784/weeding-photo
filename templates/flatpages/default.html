@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+				<li><a href="/" class="current">Главная</a></li>
+                <li><a href="/works/">Портфолио</a></li>
+                <li><a href="flatpage.html">Услуги</a></li>
+                <li><a href="flatpage.html">О нас</a></li>
+                <li><a href="/contact/">Заказ сьемки</a></li>
+                {% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="small-12 medium-7 large-12 columns">
+		<h2>{{ flatpage.title }}</h2>
+
+        <p>{{ flatpage.content }}</p>
+
+{% endblock %}

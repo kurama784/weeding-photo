@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load solo_tags %}
+{% get_solo 'pages.Settings' as site_config %}
+{% load thumbnail %}
+{% block content %}
+
+
+
+<div class="row">
+
+
+	<div class="small-12 medium-12 large-12 columns">
+
+
+			<center>{{ site_config.welcome | safe }}</center>
+
+         </div>
+
+
+      </div>
+
+		<ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-3 inline-list-custom">
+			
+
+    </ul>
+	</div>
+</div>
+
+    <script>
+  $(function() {
+    $(".rslides").responsiveSlides({
+        pager: true
+    });
+  });
+</script>
+
+{% endblock %}
+

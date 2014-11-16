@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="small-12 medium-7 large-8 columns">
+		<h2>Статус Заказа</h2>
+
+        <form action="/status/" method="post" id='contact'>{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Проверить" />
+        </form>
+
+
+{% endblock %}

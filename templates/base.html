@@ -1,0 +1,126 @@
+{% load solo_tags %}
+{% get_solo 'pages.Settings' as site_config %}
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>{{ site_config.site_name }}</title>
+<meta name="description" content="Page description goes here">
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<!-- ******************************************************************************************
+Set the type and color theme here - the Pro version contains additional themes -->
+<link href="{{ STATIC_URL }}css/hawthorne_type5_color1.css" rel="stylesheet">
+<!--  ************************************************************************************* -->
+
+<link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
+<script src="{{ STATIC_URL }}js/vendor/modernizr.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.fancybox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.fancybox.pack.js"></script>
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="{{ STATIC_URL }}helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+    <script src="{{ STATIC_URL }}slider/responsiveslides.min.js"></script>
+    <script src="{{ STATIC_URL }}jscroll/jquery-ias.min.js"></script>
+    <link href="{{ STATIC_URL }}slider/responsiveslides.css" rel="stylesheet">
+
+    {% if site_config.background %}
+    <style>
+
+  body {
+      background-image: url('{{ site_config.background.url }}');
+  }
+
+</style>
+    {% endif %}
+
+
+</head>
+<body>
+
+<div class="top-border"></div>
+
+<div class="row">
+	<div class="small-12 medium-12 large-12 small-centered columns">
+		<header>
+            <!--
+			<h1><a href="">WeddingPhotoKiev</a></h1>
+			<h2><a href="index.html">Design & Art</a></h2>
+			-->
+			<div class="logo">
+                {% if site_config.logo %}
+                    <a href="#"><img src="{{ site_config.logo.url }}" alt="Your Name Here" /></a>
+
+            {% else %}
+				<a href="#"><img src="{{ STATIC_URL }}img/logo.png" alt="Your Name Here" /></a>
+            {% endif %}
+			</div>
+
+		</header>
+	</div>
+	<div class="small-12 medium-12 large-12 small-centered columns">
+		<nav>
+			<ul class="inline-list-custom">
+
+                {% load menubuilder %}
+                {% menu menu %}
+
+            {% for item in menuitems %}
+            <li {% if item.current %}class="current"{% endif %}>
+             <a href="{{ item.url }}" title="{{ item.title|escape }}">{{ item.title }}</a>
+            </li>
+{% endfor %}
+			</ul>
+		</nav>
+	</div>
+</div>
+
+{% block content %}
+
+
+{% endblock %}
+
+{% block footer %}
+
+    <div class="row">
+	<div class="small-12 medium-12 large-12 columns">
+		<footer>
+			<ul>
+				<li>&copy; 2014 <a href="#">Wedding Photo Kiev</a>. All rights reserved.</li>
+				<li><a href="mailto:kolabrod@gmail.com"><i class="fa fa-envelope-o"></i> kolabrod@gmail.com</a></li>
+
+				<!-- *****************************************************************************************
+				The "Powered by Type & Grids" link in the footer is required in the Free version
+				typeandgrids.com/pirates -->
+				<li>Created by <a href="#" target="_blank">prosperodesu</a></li>
+				<!--  ************************************************************************************ -->
+
+			</ul>
+			<div class="social-icons">
+				<a href="#" target="_blank"><i class="fa fa-vk 2x"></i> vkontakte</a>
+			</div>
+		</footer>
+	</div>
+</div>
+
+<script src="{{ STATIC_URL }}js/foundation.min.js"></script>
+<script src="{{ STATIC_URL }}js/hawthorne.js"></script>
+
+<script type='text/javascript'>
+var ias = jQuery.ias({
+  container:  '#row',
+  item:       '#thumbnail',
+  pagination: '#pagination',
+  next:       '.next'
+});
+</script>
+
+
+</body>
+</html>
+
+{% endblock %}

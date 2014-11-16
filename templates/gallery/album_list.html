@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% load infinite_pagination %}
+
+{% block nav %}
+				<li><a href="/">Главная</a></li>
+                <li><a href="/works/" class="current">Портфолио</a></li>
+                <li><a href="about.html">Услуги</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="/contact/">Заказ сьемки</a></li>
+                {% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="small-12 medium-12 large-12 columns">
+		<ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-3 inline-list-custom">
+			
+			<!-- Begin project -->
+            {% autopaginate object_list per_page=1 as paginated_list %}
+            {% if object_list %}
+            {% for photo in object_list %}
+			<li>
+				<div class="thumbnail">
+					<div class="thumbnail-img">
+						<div class="thumbnail-hover"><a href="/album/{{ photo.id }}"></a></div>
+
+                        {% thumbnail photo.image "328x203" crop="center" as im %}
+                       <a href="/album/{{ photo.id }}"> <img src="{{ im.url }}" width="{{ im.width }}"
+                                                       height="{{ im.height }}" alt="Project 01" /></a>
+                      {% endthumbnail %}
+
+					</div>
+					<div class="thumbnail-caption"><a class="caption-link" href="/album/{{ photo.id }}">{{ photo.title }}</a></div>
+				</div>
+			</li>
+            {% endfor %}
+			<!-- End project -->
+            <p>{% paginate %}</p>
+
+			{% else %}
+			<!-- Begin project -->
+			<li>
+				<div class="thumbnail">
+					<div class="thumbnail-img">
+						<div class="thumbnail-hover"><a href="../detail.html"></a></div>
+						<a href="../detail.html"><img src="{{ STATIC_URL }}img/projects/project-02.png" alt="Project 02" /></a>
+					</div>
+					<div class="thumbnail-caption"><a class="caption-link" href="../detail.html">Project 02</a></div>
+				</div>
+			</li>
+			<!-- End project -->
+			
+			<!-- Begin project -->
+			<li>
+				<div class="thumbnail">
+					<div class="thumbnail-img">
+						<div class="thumbnail-hover"><a href="../detail.html"></a></div>
+						<a href="../detail.html"><img src="{{ STATIC_URL }}img/projects/project-03.png" alt="Project 03" /></a>
+					</div>
+					<div class="thumbnail-caption"><a class="caption-link" href="../detail.html">Project 03</a></div>
+				</div>
+			</li>
+			<!-- End project -->
+			
+			<!-- Begin project -->
+			<li>
+				<div class="thumbnail">
+					<div class="thumbnail-img">
+						<div class="thumbnail-hover"><a href="../detail.html"></a></div>
+						<a href="../detail.html"><img src="{{ STATIC_URL }}img/projects/project-04.png" alt="Project 04" /></a>
+					</div>
+					<div class="thumbnail-caption"><a class="caption-link" href="../detail.html">Project 04</a></div>
+				</div>
+			</li>
+			<!-- End project -->
+			
+			<!-- Begin project -->
+			<li>
+				<div class="thumbnail">
+					<div class="thumbnail-img">
+						<div class="thumbnail-hover"><a href="../detail.html"></a></div>
+						<a href="../detail.html"><img src="{{ STATIC_URL }}img/projects/project-05.png" alt="Project 05" /></a>
+					</div>
+					<div class="thumbnail-caption"><a class="caption-link" href="../detail.html">Project 05</a></div>
+				</div>
+			</li>
+			<!-- End project -->
+			
+			<!-- Begin project -->
+			<li>
+				<div class="thumbnail">
+					<div class="thumbnail-img">
+						<div class="thumbnail-hover"><a href="../detail.html"></a></div>
+						<a href="../detail.html"><img src="{{ STATIC_URL }}img/projects/project-06.png" alt="Project 06" /></a>
+					</div>
+					<div class="thumbnail-caption"><a class="caption-link" href="../detail.html">Project 06</a></div>
+				</div>
+			</li>
+			<!-- End project -->
+			
+			<!-- Begin project -->
+			<li>
+				<div class="thumbnail">
+					<div class="thumbnail-img">
+						<div class="thumbnail-hover"><a href="../detail.html"></a></div>
+						<a href="../detail.html"><img src="{{ STATIC_URL }}img/projects/project-07.png" alt="Project 07" /></a>
+					</div>
+					<div class="thumbnail-caption"><a class="caption-link" href="../detail.html">Project 07</a></div>
+				</div>
+			</li>
+			<!-- End project -->
+			
+			<!-- Begin project -->
+			<li>
+				<div class="thumbnail">
+					<div class="thumbnail-img">
+						<div class="thumbnail-hover"><a href="../detail.html"></a></div>
+						<a href="../detail.html"><img src="{{ STATIC_URL }}img/projects/project-08.png" alt="Project 08" /></a>
+					</div>
+					<div class="thumbnail-caption"><a class="caption-link" href="../detail.html">Project 08</a></div>
+				</div>
+			</li>
+			<!-- End project -->
+			
+			<!-- Begin project -->
+			<li>
+				<div class="thumbnail">
+					<div class="thumbnail-img">
+						<div class="thumbnail-hover"><a href="../detail.html"></a></div>
+						<a href="../detail.html"><img src="{{ STATIC_URL }}img/projects/project-09.png" alt="Project 09" /></a>
+					</div>
+					<div class="thumbnail-caption"><a class="caption-link" href="../detail.html">Project 09</a></div>
+				</div>
+			</li>
+			<!-- End project -->
+        {% endif %}
+
+						
+		</ul>
+	</div>
+</div>
+
+
+{% endblock %}
+

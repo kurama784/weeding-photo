@@ -1,0 +1,42 @@
+{% extends "admin/change_form.html" %}
+{% block extrahead %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/modal/jquery.modal.css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="{{ STATIC_URL }}js/modal/jquery.modal.js"></script>
+ <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+{% endblock %}
+{% block after_field_sets %}
+
+    <div id="dialog" class="modal">
+    <b>Идет загрузка файлов</b> - не закрывайте это окно до окончания загрузки
+  <center><p><img src = "{{ STATIC_URL }}img/progress.png"></p></center>
+</div>
+</div>
+
+	</div>
+
+	<div class="bar">
+    <span></span>
+</div>
+</div>
+
+<script>
+$('#photo_form').submit(function() {
+    this.submit(); // If all the validations succeeded
+    $('#dialog').modal()
+
+    $.getJSON( "/upload_stat/", function(data) {
+        console.log(data);
+        console.log(data);
+    });
+
+    $.getJSON( "/upload_stat/", function(data) {
+        console.log(data);
+        console.log(data);
+    });
+    });
+</script>
+
+{% endblock %}

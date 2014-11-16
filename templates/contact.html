@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+				<li><a href="/">Главная</a></li>
+                <li><a href="/works/">Портфолио</a></li>
+                <li><a href="flatpage.html">Услуги</a></li>
+                <li><a href="flatpage.html">О нас</a></li>
+                <li><a href="/contact/" class="current" >Заказ сьемки</a></li>
+                {% endblock %}
+
+{% block content %}
+
+    <style type="text/css">
+
+		.tooltip{
+   			display: inline;
+    		position: relative;
+		}
+
+		.tooltip:hover:after{
+    		background: #333;
+    		background: rgba(0,0,0,.8);
+    		border-radius: 5px;
+    		bottom: 26px;
+    		color: #fff;
+    		content: attr(title);
+    		left: 20%;
+    		padding: 5px 15px;
+    		position: absolute;
+    		z-index: 98;
+    		width: 220px;
+		}
+
+		.tooltip:hover:before{
+    		border: solid;
+    		border-color: #333 transparent;
+    		border-width: 6px 6px 0 6px;
+    		bottom: 20px;
+    		content: "";
+    		left: 50%;
+    		position: absolute;
+    		z-index: 99;
+		}
+
+	</style>
+
+<div class="row">
+	<div class="small-12 medium-7 large-7 columns">
+		<h2>Заказать съемку</h2>
+		<form action="/contact/" method="post" id='contact'>{% csrf_token %}
+        {{ form.as_p }}
+
+        <script type="text/javascript">
+window.onload = function()
+{
+     document.getElementById("id_length").onchange = function()
+     {
+         var price = document.getElementById("price")
+         var form_price = document.getElementById("id_length").value
+         price.innerHTML = "Стоимость сьемки: " + form_price * 350 + "грн"
+         if(form_price > 4) {
+             var get_gift = document.getElementById("gift")
+             get_gift.innerHTML = "Love Story в подарок!"
+         }
+
+          if(form_price > 9) {
+             var get_gift = document.getElementById("gift")
+             get_gift.innerHTML = "Фотокнига и Love Story в подарок!"
+         }
+
+         if(form_price < 5) {
+             var get_gift = document.getElementById("gift")
+             get_gift.innerHTML = ""
+
+          }
+     };
+};
+</script>
+
+        <p><span id='price'></span></p>
+        <p><span id='gift'></span></p>
+
+
+
+        <input type="submit" value="Submit" />
+        </form>
+        <p>*Наша основная цена 350грн\час.</p>
+
+        <p>*При заказе съемке от 5часов – love-story  в подарок.</p>
+
+        *При заказе съемке полного дня, от 10часов работы и более –
+
+        <a href="#"
+           title="Фотокнига размером 30х30см в твердом переплете на 25ст."
+           class="tooltip"><span title ="фотокнига">фотокнига</span></a>
+
+        и
+
+        <a href="#"
+           title="Фотосессия будущих мужа и жены в романтичном образе.
+           Эти фото будут готовы до свадьбы, чтобы вы могли показать их в виде слайд-шоу на свадьбе."
+           class="tooltip">
+
+        <span title ="love story">love-story в подарок.</span></a>
+
+
+	</div>
+	<div class="small-12 medium-5 large-5 columns">
+		<p>
+			<img src="{{ STATIC_URL }}img/about-photo.png" alt="Your Name" />
+		</p>
+
+        Получить дополнительную информацию, вы можете по телефонам
+
+		<p><div class="lined-list">
+			<ul>
+
+				<li><strong>Город:</strong> Киев, Украина</li>
+				<li><strong>Ирина:</strong> <i class="fa fa-phone"> </i><a href="#">58647-7657</a></li>
+				<li><strong>Анастасия:</strong> <i class="fa fa-phone"> </i> <a href="#">24069029645</a></li>
+			</ul>
+		</div></p>
+	</div>
+</div>
+
+{% endblock %}
