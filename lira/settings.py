@@ -26,7 +26,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 
@@ -90,9 +90,6 @@ ADMIN_MEDIA_PREFIX = '/media/'
 
 
 ROOT_URLCONF = 'lira.urls'
-
-WSGI_APPLICATION = 'lira.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

@@ -1,13 +1,68 @@
 {% extends 'base.html' %}
 {% block content %}
+<script type="text/javascript" src="http://scriptjava.net/source/scriptjava/scriptjava.js"></script>
 <div class="row">
 	<div class="small-12 medium-7 large-8 columns">
 		<h2>Статус Заказа</h2>
 
-        <form action="/status/" method="post" id='contact'>{% csrf_token %}
+        <form id='contact'>
         {{ form.as_p }}
-        <input type="submit" value="Проверить" />
+        <input id='get_data' type="button" value="Проверить" />
         </form>
 
+        <hr>
+        <div class ="status" id='status_node'>
+        </div>
+
+
+<script>
+
+    document.getElementById("get_data").onclick = function() {
+        email = document.getElementById("id_email").value
+        document.getElementById('status_node').innerHTML = "";
+        $.getJSON('/status_json/', {
+            'email': email
+            },
+            function(data){
+
+            if(data.email == "none") {
+                mydiv = document.getElementById('status_node')
+                mydiv.appendChild(document.createTextNode("Заказ не найден, проверьте ваш email"));
+            }
+
+            else {
+
+
+            for(item in data) {
+                last_item = item
+            }
+            console.log(last_item);
+            for(i=1; i<=last_item; i++) {
+
+                mydiv = document.getElementById('status_node')
+                mydiv.style.display = 'inline';
+                var myp = document.createElement("p");
+                var myhr = document.createElement("hr");
+                mydiv.appendChild(myp);
+                mydiv.appendChild(document.createTextNode(data[i].name + " ваш заказ "));
+                mydiv.appendChild(myp);
+                mydiv.appendChild(document.createTextNode(data[i].status + " "));
+                mydiv.appendChild(myp);
+                mydiv.appendChild(document.createTextNode(", длительность сьемки " + data[i].length + " часов "));
+                mydiv.appendChild(myp);
+                mydiv.appendChild(document.createTextNode(", заказ сделан " + data[i].date));
+                mydiv.appendChild(myp);
+                mydiv.appendChild(document.createTextNode(", стоимость  " + data[i].price + " грн "));
+                mydiv.appendChild(myp);
+                mydiv.appendChild(myhr);
+
+             }
+
+
+
+            };
+            });
+    }
+</script>
 
 {% endblock %}

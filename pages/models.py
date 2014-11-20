@@ -6,19 +6,20 @@ from tinymce.models import HTMLField
 class Contact(models.Model):
 
     STATUS_CHOICES = (
-    ('YES', 'Succes'),
-    ('NO', 'Sophomore'),
-    ('JR', 'Junior'),
-    ('SR', 'Senior'),
-    ('GR', 'Graduate'),
+    ('в обработке', 'В обработке'),
+    ('рассматривается', 'Рассматривается'),
+    ('обработан', 'Обработан'),
+    ('выполнен', 'Выполнен'),
 )
 
     name = models.CharField(max_length=50, verbose_name='Имя')
     email = models.EmailField(verbose_name='Электронная Почта')
     place = models.CharField(max_length=50, verbose_name='Место съемки')
-    length = models.IntegerField(verbose_name='Длительность сьемки')
-    content = models.TextField(max_length=500)
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, null=True, blank=True)
+    length = models.IntegerField(verbose_name='Длительность сьемки(часов)')
+    content = models.TextField(max_length=500, verbose_name='Комментарии')
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, null=True, blank=True)
+    price = models.IntegerField(verbose_name='Цена(грн)')
+    pub_date = models.DateTimeField(auto_now=True, verbose_name='Дата заказа')
 
     class Meta:
         verbose_name = u'Заявка'
@@ -39,6 +40,11 @@ class Settings(SingletonModel):
                                    null=True)
     logo = models.ImageField(upload_to='images/', verbose_name='Логотип', blank=True,
                              null=True)
+    autoload_photos = models.BooleanField(default=False, verbose_name='Бесконечная загрузка фотографий(Beta)',
+                                          help_text='При загрузке страницы фотографий они автоматически подгрузятся при скроллинге')
+    fancybox = models.BooleanField(default=True,
+                                  verbose_name='Просмотр фото в режиме галереи',
+                                  help_text='При клике на фото будет включен режим галерии')
 
     def __unicode__(self):
 

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
+{% get_solo 'pages.Settings' as site_config %}
 
 {% block nav %}
 				<li><a href="/">Главная</a></li>
@@ -34,9 +35,11 @@
         {% if photos %}
 		{% for photo in photos %}
 		<!-- Begin project image -->
-        <div id ="scrolling">
+        <div id ="scrolling{{ photo.id }}">
 		<div class="project-img">
+            {% if  site_config.fancybox  %}
 			<a class="fancybox" rel="group" href="{{ photo.image.url }}" alt="Project 01a">
+            {% endif %}
 
                 {% thumbnail photo.image "800x600" as im %}
 
@@ -47,6 +50,7 @@
             </a>
 		</div>
         </div>
+
 		<!-- End project image -->
         {% endfor %}
 
@@ -85,10 +89,70 @@
 });
 </script>
 
+
     <script type="text/javascript">
+    function json_loads(photo_count) {
+        $.getJSON('/json_album_detail/', {
+            'album_id': {{ object.id }},
+            'count': photo_count // min 3!!
+            }, function(data) {
+            console.log(data)
 
 
 
+
+            for(item in data) {
+                last_item = item
+            }
+
+            console.log(last_item);
+            for(i=1, count=3; i<=last_item; i++, count++) {
+                if(last_item == photo_count) {
+                    break
+                }
+                newdiv = document.createElement("div");
+                mydiv = document.getElementById('scrolling3')
+                newdiv.className='project-img';
+                newhref = document.createElement("a")
+                newfancy = document.createElement("a")
+                newfancy.setAttribute('class', 'fancybox')
+                newfancy.setAttribute('href', data[i].url)
+                newfancy.setAttribute('rel', 'group')
+                newimg = document.createElement("img")
+                newimg.setAttribute('src', data[i].url)
+                newhref.setAttribute('href', data[i].url)
+                newdiv.appendChild(newfancy)
+                newdiv.appendChild(newhref)
+                newdiv.appendChild(newimg)
+                mydiv.appendChild(newdiv)
+
+
+            }
+
+        });
+
+
+    }
   </script>
 
+    <script>
+    var scroll_count = 0
+    var photo_count = 4
+    $(window).on("scroll", function() {
+	var scrollHeight = $(document).height();
+    console.log('scrollHeight: ' + scrollHeight)
+	var scrollPosition = $(window).height() + $(window).scrollTop();
+    console.log('scrollPosition: ' + scrollPosition)
+    console.log('To event = ' + (scrollHeight - scrollPosition) / scrollHeight)
+	if ((scrollHeight - scrollPosition) / scrollHeight < 0.01) {
+        scroll_count = scroll_count+1
+        console.log(scroll_count)
+        photo_count = photo_count+1
+        json_loads(photo_count)
+	}
+
+
+    });
+
+    </script>
 {% endblock %}
