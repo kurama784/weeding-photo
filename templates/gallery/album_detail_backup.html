@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+{% block nav %}
+				<li><a href="/">Главная</a></li>
+                <li><a href="/works/" class="current" >Портфолио</a></li>
+                <li><a href="about.html">Услуги</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="/contact/">Заказ сьемки</a></li>
+                {% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="small-12 medium-7 large-7 columns">
+		<h2>{{ object.title }}</h2>
+		<p>
+			{{ object.content }}
+		</p>
+	</div>
+	<div class="small-12 medium-5 large-5 columns">
+		<div class="lined-list">
+			<ul>
+				<li><strong>Клиенты:</strong>{{ object.client }}</li>
+				<li><strong>Выполнено:</strong>Weeding Photo Kiev</li>
+				<li><strong>Год:</strong> 2014</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="small-12 medium-12 large-12 columns">
+		<hr class="project-detail-hr" />
+        {% if photos %}
+		{% for photo in photos %}
+		<!-- Begin project image -->
+        <div id ="scrolling">
+		<div class="project-img">
+			<a class="fancybox" rel="group" href="{{ photo.image.url }}" alt="Project 01a">
+
+                {% thumbnail photo.image "800x600" as im %}
+
+                <img src="{{ im.url }}" alt="" width="{{ im.width }}" height="{{ im.height }}"/>
+
+                {% endthumbnail %}
+
+            </a>
+		</div>
+        </div>
+		<!-- End project image -->
+        {% endfor %}
+
+            {% else %}
+           <h3>Unknown Album</h3>
+
+        {% endif %}
+		
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="small-12 medium-12 large-12 columns">
+		<p class="back-to-top-holder"><a class="back-to-top"><i class="fa fa-chevron-circle-up fa-3x"></i></a></p>
+	</div>
+</div>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+	$(".fancybox").fancybox({
+		prevEffect	: 'none',
+		nextEffect	: 'none',
+		helpers	: {
+			title	: {
+				type: 'outside'
+			},
+			thumbs	: {
+				width	: 50,
+				height	: 50
+			}
+		}
+	});
+});
+</script>
+
+    <script type="text/javascript">
+
+
+
+  </script>
+
+{% endblock %}
