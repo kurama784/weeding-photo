@@ -40,10 +40,10 @@ class Settings(SingletonModel):
                                    null=True)
     logo = models.ImageField(upload_to='images/', verbose_name='Логотип', blank=True,
                              null=True)
-    autoload_photos = models.BooleanField(default=False, verbose_name='Бесконечная загрузка фотографий(Beta)',
+    autoload_photos = models.BooleanField(default=False, verbose_name='Бесконечная загрузка фотографий(Тест)',
                                           help_text='При загрузке страницы фотографий они автоматически подгрузятся при скроллинге')
     fancybox = models.BooleanField(default=True,
-                                  verbose_name='Просмотр фото в режиме галереи',
+                                  verbose_name='Просмотр фото в режиме галереи(только при отключенной автозагрузке)',
                                   help_text='При клике на фото будет включен режим галерии')
 
     def __unicode__(self):

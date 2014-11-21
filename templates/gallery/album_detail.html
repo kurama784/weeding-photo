@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
+{% load solo_tags %}
 {% get_solo 'pages.Settings' as site_config %}
 
 {% block nav %}
@@ -37,9 +38,11 @@
 		<!-- Begin project image -->
         <div id ="scrolling{{ photo.id }}">
 		<div class="project-img">
+        {% if  not site_config.autoload_photos  %}
             {% if  site_config.fancybox  %}
 			<a class="fancybox" rel="group" href="{{ photo.image.url }}" alt="Project 01a">
             {% endif %}
+       {% endif %}
 
                 {% thumbnail photo.image "800x600" as im %}
 
@@ -65,9 +68,11 @@
 
 <div class="row">
 	<div class="small-12 medium-12 large-12 columns">
-		<p class="back-to-top-holder"><a class="back-to-top"><i class="fa fa-chevron-circle-up fa-3x"></i></a></p>
+		<p class="back-to-top-holder"><a class="back-to-top"><i class="fa fa-chevron-circle-up fa-3x" id='spinner'></i></a></p>
 	</div>
 </div>
+
+
 
 
     <script type="text/javascript">
@@ -91,10 +96,11 @@
 
 
     <script type="text/javascript">
-    function json_loads(photo_count) {
+    function json_loads(load_count, photo_count) {
         $.getJSON('/json_album_detail/', {
             'album_id': {{ object.id }},
-            'count': photo_count // min 3!!
+            'count': photo_count, // min 3!!
+            'load_count': load_count
             }, function(data) {
             console.log(data)
 
@@ -110,6 +116,9 @@
                 if(last_item == photo_count) {
                     break
                 }
+
+                document.getElementById("spinner").className = "fa fa-spinner fa fa-circle-o-notch fa-spin fa-2x";
+
                 newdiv = document.createElement("div");
                 mydiv = document.getElementById('scrolling3')
                 newdiv.className='project-img';
@@ -129,14 +138,19 @@
 
             }
 
+            document.getElementById("spinner").className = "fa fa-chevron-circle-up fa-3x";
+
+
         });
 
 
     }
   </script>
 
+    {% if  site_config.autoload_photos  %}
     <script>
     var scroll_count = 0
+    var load_count = 3
     var photo_count = 4
     $(window).on("scroll", function() {
 	var scrollHeight = $(document).height();
@@ -145,14 +159,16 @@
     console.log('scrollPosition: ' + scrollPosition)
     console.log('To event = ' + (scrollHeight - scrollPosition) / scrollHeight)
 	if ((scrollHeight - scrollPosition) / scrollHeight < 0.01) {
+        json_loads(load_count, photo_count)
         scroll_count = scroll_count+1
         console.log(scroll_count)
         photo_count = photo_count+1
-        json_loads(photo_count)
+        load_count = load_count+1
 	}
 
 
     });
 
     </script>
+    {% endif %}
 {% endblock %}
